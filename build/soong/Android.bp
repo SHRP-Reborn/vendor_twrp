@@ -151,3 +151,366 @@ legacy_hw_disk_encryption {
         },
     },
 }
+
+soong_config_module_type {
+    name: "twrp",
+    module_type: "cc_defaults",
+    config_namespace: "twrpGlobalVars",
+    value_variables: [
+    "tw_delay_touch_init_ms",
+    //"tw_use_key_code_touch_sync",
+    "tw_ozip_decrypt_key",
+    "tw_x_offset",
+    "tw_y_offset",
+    "tw_w_offset",
+    "tw_h_offset",
+    "tw_framerate",
+    "target_recovery_overscan_percent",
+    "tw_input_blacklist",
+    //"tw_whitelist_input",
+    "tw_support_input_aidl_haptics_fqname",
+    "tw_brightness_path",
+    "tw_max_brightness",
+],
+    bool_variables: [
+        "tw_event_logging",
+        "tw_no_screen_blank",
+        "tw_no_screen_timeout",
+        "tw_oem_build",
+        "tw_round_screen",
+        "tw_support_input_1_2_haptics",
+        "tw_target_uses_qcom_bsp",
+        "tw_include_jpeg",
+        "recovery_touchscreen_swap_xy",
+        "recovery_touchscreen_flip_x",
+        "recovery_touchscreen_flip_y",
+        "recovery_graphics_force_use_linelength",
+        "recovery_graphics_force_single_buffer",
+        "twrp_event_logging",
+        "tw_screen_blank_on_boot",
+        "tw_fbiopan",
+        "tw_ignore_major_axis_0",
+        "tw_ignore_mt_position_0",
+        "tw_haptics_tspdrv",
+        "tw_exclude_nano",
+        "tw_support_input_aidl_haptics",
+        "tw_support_input_aidl_haptics_fix_off",
+        "tw_use_samsung_haptics",
+        // shrp //
+        "tw_custom_battery_pos",
+        "tw_custom_clock_pos",
+        "tw_custom_cpu_pos",
+        "shrp_custom_flashlight",
+        "shrp_dark",
+        "shrp_lite",
+        "shrp_dev_use_hex",
+        "shrp_dev_flash_both_slots",
+        "shrp_exress",
+        "shrp_express_use_data",
+        "shrp_build_date",
+        "shrp_date",
+        "shrp_official",
+        "is_official",
+        "shrp_skip_default_addon_1",
+        "shrp_skip_default_addon_2",
+        "shrp_skip_default_addon_3",
+        "shrp_skip_default_addon_4",
+        "shrp_exclude_magisk_flash",
+        "shrp_external_addon_1_name",
+        "shrp_external_addon_1_info",
+        "shrp_external_addon_1_filename",
+        "shrp_external_addon_1_btn_text",
+        "shrp_external_addon_1_successful_text",
+        "shrp_external_addon_2_name",
+        "shrp_external_addon_2_info",
+        "shrp_external_addon_2_filename",
+        "shrp_external_addon_2_btn_text",
+        "shrp_external_addon_2_successful_text",
+        "shrp_external_addon_3_name",
+        "shrp_external_addon_3_info",
+        "shrp_external_addon_3_filename",
+        "shrp_external_addon_3_btn_text",
+        "shrp_external_addon_3_successful_text",
+        "shrp_external_addon_4_name",
+        "shrp_external_addon_4_info",
+        "shrp_external_addon_4_filename",
+        "shrp_external_addon_4_btn_text",
+        "shrp_external_addon_4_successful_text",
+        "shrp_external_addon_5_name",
+        "shrp_external_addon_5_info",
+        "shrp_external_addon_5_filename",
+        "shrp_external_addon_5_btn_text",
+        "shrp_external_addon_5_successful_text",
+        "shrp_external_addon_6_name",
+        "shrp_external_addon_6_info",
+        "shrp_external_addon_6_filename",
+        "shrp_external_addon_6_btn_text",
+        "shrp_external_addon_6_successful_text",
+],
+    properties: ["cflags"],
+}
+
+twrp {
+    name: "twrp_defaults",
+    soong_config_variables: {
+        tw_delay_touch_init_ms: {
+            cflags: ["-DTW_DELAY_TOUCH_INIT_MS=%s"]
+        },
+        //tw_use_key_code_touch_sync: {
+            //cflags: ["-DTW_USE_KEY_CODE_TOUCH_SYNC=%s"]
+        //},
+       tw_event_logging: {
+            cflags: ["-D_EVENT_LOGGING"]
+        },
+        tw_ozip_decrypt_key: {
+            cflags: ["-DTW_OZIP_DECRYPT_KEY=\"%s\""]
+        },
+        tw_no_screen_blank: {
+            cflags: ["-DTW_NO_SCREEN_BLANK"]
+        },
+        tw_no_screen_timeout: {
+            cflags: ["-DTW_NO_SCREEN_TIMEOUT"]
+        },
+        tw_oem_build: {
+            cflags: ["-DTW_OEM_BUILD"]
+        },
+        tw_x_offset: {
+            cflags: ["-DTW_X_OFFSET=%s"]
+        },
+        tw_y_offset: {
+            cflags: ["-DTW_Y_OFFSET=%s"]
+        },
+        tw_w_offset: {
+            cflags: ["-DTW_W_OFFSET=%s"]
+        },
+        tw_h_offset: {
+            cflags: ["-DTW_H_OFFSET=%s"]
+        },
+        tw_framerate: {
+            cflags: ["-DTW_FRAMERATE=%s"]
+        },
+        tw_round_screen: {
+            cflags: ["-DTW_ROUND_SCREEN"]
+        },
+        tw_support_input_1_2_haptics: {
+            cflags: ["-DUSE_QTI_HAPTICS"]
+        },
+        tw_target_uses_qcom_bsp: {
+            cflags: ["-DMSM_BSP"]
+        },
+        tw_include_jpeg: {
+            cflags: ["-DTW_INCLUDE_JPEG"]
+        },
+        recovery_touchscreen_swap_xy: {
+            cflags: ["-DRECOVERY_TOUCHSCREEN_SWAP_XY"]
+        },
+        recovery_touchscreen_flip_x: {
+            cflags: ["-DRECOVERY_TOUCHSCREEN_FLIP_X"]
+        },
+        recovery_touchscreen_flip_y: {
+            cflags: ["-DRECOVERY_TOUCHSCREEN_FLIP_Y"]
+        },
+        recovery_graphics_force_use_linelength: {
+            cflags: ["-DRECOVERY_GRAPHICS_FORCE_USE_LINELENGTH"]
+        },
+        recovery_graphics_force_single_buffer: {
+            cflags: ["-DRECOVERY_GRAPHICS_FORCE_SINGLE_BUFFER"]
+        },
+        twrp_event_logging: {
+            cflags: ["-DTWRP_EVENT_LOGGING"]
+        },
+        target_recovery_overscan_percent: {
+            cflags: ["-DOVERSCAN_PERCENT"]
+        },
+        tw_screen_blank_on_boot: {
+            cflags: ["-DTW_SCREEN_BLANK_ON_BOOT"]
+        },
+        tw_fbiopan: {
+            cflags: ["-DTW_FBIOPAN"]
+        },
+        tw_ignore_major_axis_0: {
+            cflags: ["-DTW_IGNORE_MAJOR_AXIS_0"]
+        },
+        tw_ignore_mt_position_0: {
+            cflags: ["-DTW_IGNORE_MT_POSITION_0"]
+        },
+        tw_input_blacklist: {
+            cflags: ["-DTW_INPUT_BLACKLIST=\"%s\""]
+        },
+        //tw_whitelist_input: {
+            //cflags: ["-DWHITELIST_INPUT=\"%s\""]
+        //},
+        tw_haptics_tspdrv: {
+            cflags: ["-DTW_HAPTICS_TSPDRV"]
+        },
+        tw_exclude_nano: {
+            cflags: ["-DTW_EXCLUDE_NANO"]
+        },
+        tw_support_input_aidl_haptics: {
+            cflags: ["-DUSE_QTI_AIDL_HAPTICS"]
+        },
+        tw_support_input_aidl_haptics_fqname: {
+            cflags: ["-DUSE_QTI_AIDL_HAPTICS_FQNAME=\"%s\""]
+        },
+        tw_support_input_aidl_haptics_fix_off: {
+             cflags: ["-DUSE_QTI_AIDL_HAPTICS_FIX_OFF"]
+        },
+        tw_use_samsung_haptics: {
+             cflags: ["-DUSE_SAMSUNG_HAPTICS"]
+        },
+        tw_brightness_path: {
+             cflags: ["-DTW_BRIGHTNESS_PATH=\"%s\""]
+        },
+        tw_max_brightness: {
+            cflags: ["-DTW_MAX_BRIGHTNESS=%s"]
+        },
+        // shrp //
+        tw_custom_battery_pos: {
+            cflags: ["-DTW_CUSTOM_BATTERY_POS"]
+        },
+        tw_custom_clock_pos: {
+            cflags: ["-DTW_CUSTOM_CLOCK_POS"]
+        },
+        tw_custom_cpu_pos: {
+            cflags: ["-DTW_CUSTOM_CPU_POS"]
+        },
+        shrp_custom_flashlight: {
+            cflags: ["-DSHRP_CUSTOM_FLASHLIGHT"]
+        },
+        shrp_dark: {
+            cflags: ["-DSHRP_DARK"]
+        },
+        shrp_lite: {
+            cflags: ["-DSHRP_LITE"]
+        },
+        shrp_dev_use_hex: {
+            cflags: ["-DSHRP_DEV_USE_HEX"]
+        },
+        shrp_dev_flash_both_slots: {
+            cflags: ["-DSHRP_DEV_FLASH_BOTH_SLOTS"]
+        },
+        shrp_exress: {
+            cflags: ["-DSHRP_EXPRESS"]
+        },
+        shrp_express_use_data: {
+            cflags: ["-DSHRP_EXPRESS_USE_DATA"]
+        },
+        shrp_build_date: {
+            cflags: ["-DSHRP_BUILD_DATE"]
+        },
+        shrp_date: {
+            cflags: ["-DSHRP_DATE"]
+        },
+        shrp_official: {
+            cflags: ["-DSHRP_OFFICIAL"]
+        },
+        is_official: {
+            cflags: ["-DIS_OFFICIAL"]
+        },
+        shrp_skip_default_addon_1: {
+            cflags: ["-DSHRP_SKIP_DEFAULT_ADDON_1"]
+        },
+        shrp_skip_default_addon_2: {
+            cflags: ["-DSHRP_SKIP_DEFAULT_ADDON_2"]
+        },
+        shrp_skip_default_addon_3: {
+            cflags: ["-DSHRP_SKIP_DEFAULT_ADDON_3"]
+        },
+        shrp_skip_default_addon_4: {
+            cflags: ["-DSHRP_SKIP_DEFAULT_ADDON_4"]
+        },
+        shrp_exclude_magisk_flash: {
+            cflags: ["-DSHRP_EXCLUDE_MAGISK_FLASH"]
+        },
+        shrp_external_addon_1_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_1_NAME"]
+        },
+        shrp_external_addon_1_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_1_INFO"]
+        },
+        shrp_external_addon_1_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_1_FILENAME"]
+        },
+        shrp_external_addon_1_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_1_BTN_TEXT"]
+        },
+        shrp_external_addon_1_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_1_SUCCESSFUL_TEXT"]
+        },
+        shrp_external_addon_2_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_2_NAME"]
+        },
+        shrp_external_addon_2_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_2_INFO"]
+        },
+        shrp_external_addon_2_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_2_FILENAME"]
+        },
+        shrp_external_addon_2_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_2_BTN_TEXT"]
+        },
+        shrp_external_addon_2_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_2_SUCCESSFUL_TEXT"]
+        },
+        shrp_external_addon_3_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_3_NAME"]
+        },
+        shrp_external_addon_3_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_3_INFO"]
+        },
+        shrp_external_addon_3_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_3_FILENAME"]
+        },
+        shrp_external_addon_3_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_3_BTN_TEXT"]
+        },
+        shrp_external_addon_3_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_3_SUCCESSFUL_TEXT"]
+        },
+        shrp_external_addon_4_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_4_NAME"]
+        },
+        shrp_external_addon_4_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_4_INFO"]
+        },
+        shrp_external_addon_4_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_4_FILENAME"]
+        },
+        shrp_external_addon_4_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_4_BTN_TEXT"]
+        },
+        shrp_external_addon_4_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_4_SUCCESSFUL_TEXT"]
+        },
+        shrp_external_addon_5_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_5_NAME"]
+        },
+        shrp_external_addon_5_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_5_INFO"]
+        },
+        shrp_external_addon_5_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_5_FILENAME"]
+        },
+        shrp_external_addon_5_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_5_BTN_TEXT"]
+        },
+        shrp_external_addon_5_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_5_SUCCESSFUL_TEXT"]
+        },
+        shrp_external_addon_6_name: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_6_NAME"]
+        },
+        shrp_external_addon_6_info: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_6_INFO"]
+        },
+        shrp_external_addon_6_filename: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_6_FILENAME"]
+        },
+        shrp_external_addon_6_btn_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_6_BTN_TEXT"]
+        },
+        shrp_external_addon_6_successful_text: {
+            cflags: ["-DSHRP_EXTERNAL_ADDON_6_SUCCESSFUL_TEXT"]
+        },
+    },
+}
