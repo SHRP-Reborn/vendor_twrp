@@ -147,6 +147,9 @@ function cafremote()
     echo "Remote 'caf' created"
 }
 
+# Set $TOP
+export TOP=$(gettop)
+
 # Enable SD-LLVM if available
 if [ -d $(gettop)/vendor/qcom/sdclang ]; then
             export SDCLANG=true
