@@ -200,6 +200,12 @@ SOONG_CONFIG_twrpGlobalVars_tw_support_input_aidl_haptics_fqname := $(subst ",, 
 SOONG_CONFIG_twrpGlobalVars_tw_support_input_aidl_haptics_fix_off := $(TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF)
 SOONG_CONFIG_twrpGlobalVars_tw_use_samsung_haptics := $(TW_USE_SAMSUNG_HAPTICS)
 SOONG_CONFIG_twrpGlobalVars_tw_brightness_path := $(subst ",, $(TW_BRIGHTNESS_PATH))
+ifneq ($(TW_NO_SCREEN_BLANK),)
+  ifeq ($(TW_MAX_BRIGHTNESS),)
+    TW_MAX_BRIGHTNESS := 1023
+    $(call pretty-warning,TW_MAX_BRIGHTNESS must be defined if using TW_NO_SCREEN_BLANK. Setting to default value: $(TW_MAX_BRIGHTNESS). If you would like to use a different value then please update your device tree with the correct value from your device.)
+  endif
+endif
 SOONG_CONFIG_twrpGlobalVars_tw_max_brightness := $(TW_MAX_BRIGHTNESS)
 
 ifneq ($(TARGET_CRYPTFS_HW_PATH),)
